@@ -9,7 +9,7 @@ mydb = mysql.connector.connect(
   password="",
   database="CLASH_ROYALE"
 )
-mycursor = mydb.cursor()
+mycursor = mydb.cursor(dictionary=True)
 
 app = Flask(__name__)
 
@@ -23,8 +23,9 @@ def getAllData():
     row_headers=[x[0] for x in mycursor.description]
     myresult = mycursor.fetchall()
     result = []
-    for resulti in myresult:
-        result.append(dict(zip(row_headers,resulti))) #zip in Python è una funzione integrata molto utile che aggrega elementi da due o più iterabili (come liste o tuple) in un singolo iterabile di tuple.
+    for x in myresult:
+        print(x)
+        result.append(x)
     return jsonify(result)
 
 @app.route("/air_transport")
